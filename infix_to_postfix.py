@@ -1,28 +1,34 @@
-operators = {'+': 1, '-': 1, '*': 2, '/': 2}
-postfix_expression = []
-stack = []
+from parsing_math_expressionn import parse_math_expression
 
-expression = input().split()
+expression = input().strip()
 
-for item in expression:
-    try:
-        postfix_expression.append(int(item))
-    except ValueError:
-        if not stack or stack[-1] == '(' or item == '(':
-            stack.append(item)
-        elif item == ')':
-            while stack[-1] != '(':
-                postfix_expression.append(stack.pop())
-            stack.pop()
-        elif operators[item] > operators[stack[-1]]:
-            stack.append(item)
-        else:
-            while stack and stack[-1] != '(' and operators[item] <= operators[stack[-1]]:
-                postfix_expression.append(stack.pop())
-            stack.append(item)
 
-while stack:
-    postfix_expression.append(stack.pop())
+def infix_to_postfix(expression):
+    operators = {'+': 1, '-': 1, '*': 2, '/': 2}
+    postfix_expression = []
+    stack = []
+
+    for item in expression:
+        try:
+            postfix_expression.append(int(item))
+        except ValueError:
+            if not stack or stack[-1] == '(' or item == '(':
+                stack.append(item)
+            elif item == ')':
+                while stack[-1] != '(':
+                    postfix_expression.append(stack.pop())
+                stack.pop()
+            elif operators[item] > operators[stack[-1]]:
+                stack.append(item)
+            else:
+                while stack and stack[-1] != '(' and operators[item] <= operators[stack[-1]]:
+                    postfix_expression.append(stack.pop())
+                stack.append(item)
+
+    while stack:
+        postfix_expression.append(stack.pop())
+
+    return postfix_expression
 
 
 def calculate_postfix_expression(tokens):
@@ -47,5 +53,9 @@ def calculate_postfix_expression(tokens):
     return result.pop()
 
 
-print(postfix_expression)
-print(calculate_postfix_expression(postfix_expression))
+expression = parse_math_expression(expression)
+if expression:
+    infix_expression = infix_to_postfix(expression)
+    print(calculate_postfix_expression(infix_expression))
+else:
+    print("Invalid expression")
