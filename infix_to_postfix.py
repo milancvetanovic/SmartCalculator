@@ -12,13 +12,13 @@ def infix_to_postfix(expression):
         try:
             postfix_expression.append(int(item))
         except ValueError:
-            if not stack or stack[-1] == '(' or item == '(':
+            if item == '(':
                 stack.append(item)
             elif item == ')':
                 while stack[-1] != '(':
                     postfix_expression.append(stack.pop())
                 stack.pop()
-            elif operators[item] > operators[stack[-1]]:
+            elif not stack or stack[-1] == '(' or operators[item] > operators[stack[-1]]:
                 stack.append(item)
             else:
                 while stack and stack[-1] != '(' and operators[item] <= operators[stack[-1]]:
@@ -54,8 +54,10 @@ def calculate_postfix_expression(tokens):
 
 
 expression = parse_math_expression(expression)
-if expression:
-    infix_expression = infix_to_postfix(expression)
-    print(calculate_postfix_expression(infix_expression))
-else:
-    print("Invalid expression")
+print(expression)
+print(infix_to_postfix(expression))
+# if expression:
+#     infix_expression = infix_to_postfix(expression)
+#     print(calculate_postfix_expression(infix_expression))
+# else:
+#     print("Invalid expression")
