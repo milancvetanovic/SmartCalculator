@@ -40,12 +40,28 @@ def calculate_postfix_expression(tokens):
             continue
 
         operand2 = result.pop()
+
+        if element == '-':
+            try:
+                operand1 = result.pop()
+            except IndexError:
+                result.append(-operand2)
+                continue
+
+            result.append(operand1-operand2)
+            continue
+        elif element == '+':
+            try:
+                operand1 = result.pop()
+            except IndexError:
+                result.append(operand2)
+                continue
+
+            result.append(operand1+operand2)
+            continue
+
         operand1 = result.pop()
-        if element == '+':
-            result.append(operand1 + operand2)
-        elif element == '-':
-            result.append(operand1 - operand2)
-        elif element == '*':
+        if element == '*':
             result.append(operand1 * operand2)
         elif element == '/':
             result.append(operand1 / operand2)
@@ -55,9 +71,11 @@ def calculate_postfix_expression(tokens):
 
 expression = parse_math_expression(expression)
 print(expression)
-print(infix_to_postfix(expression))
+expression = infix_to_postfix(expression)
+print(expression)
+print(calculate_postfix_expression(expression))
 # if expression:
-#     infix_expression = infix_to_postfix(expression)
-#     print(calculate_postfix_expression(infix_expression))
+#     postfix_expression = infix_to_postfix(expression)
+#     print(calculate_postfix_expression(postfix_expression))
 # else:
 #     print("Invalid expression")

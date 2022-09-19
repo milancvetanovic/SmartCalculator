@@ -61,7 +61,7 @@ class SmartCalculator:
 
     def main(self):
         while True:
-            tokens = input()
+            tokens = input().strip()
 
             if tokens.startswith('/'):
                 self.handle_command(tokens)
