@@ -71,11 +71,10 @@ def calculate_postfix_expression(tokens):
 
 expression = parse_math_expression(expression)
 print(expression)
-expression = infix_to_postfix(expression)
-print(expression)
-print(calculate_postfix_expression(expression))
-# if expression:
-#     postfix_expression = infix_to_postfix(expression)
-#     print(calculate_postfix_expression(postfix_expression))
-# else:
-#     print("Invalid expression")
+
+if expression:
+    expression = infix_to_postfix(expression)
+    print(expression)
+    print(calculate_postfix_expression(expression))
+else:
+    print("Invalid expression")

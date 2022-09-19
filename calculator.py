@@ -41,23 +41,7 @@ class SmartCalculator:
                     return None
 
     def handle_expression(self, expression):
-        operators = expression.split()
-
-        if len(operators) == 1:
-            try:
-                print(int(operators[0]))
-                return None
-            except ValueError:
-                try:
-                    print(self.variables[operators[0]])
-                    return None
-                except KeyError:
-                    if self.var_name(operators[0]):
-                        print("Invalid identifier")
-                        return None
-                    else:
-                        print("Unknown variable")
-                        return None
+        pass
 
     def main(self):
         while True:
