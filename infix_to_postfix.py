@@ -43,7 +43,7 @@ def calculate_postfix_expression(tokens):
                 result.append(-operand2)
                 continue
 
-            result.append(operand1-operand2)
+            result.append(operand1 - operand2)
             continue
         elif element == '+':
             try:
@@ -52,7 +52,7 @@ def calculate_postfix_expression(tokens):
                 result.append(operand2)
                 continue
 
-            result.append(operand1+operand2)
+            result.append(operand1 + operand2)
             continue
 
         operand1 = result.pop()

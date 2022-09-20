@@ -61,19 +61,6 @@ class SmartCalculator:
         self.variables[operators[0]] = calculate_postfix_expression(assigned_value)
         return None
 
-        # try:
-        #     self.variables[operators[0]] = int(operators[1])
-        # except ValueError:
-        #     try:
-        #         self.variables[operators[0]] = self.variables[operators[1]]
-        #     except KeyError:
-        #         if self.var_name(operators[1]):
-        #             print("Invalid assignment")
-        #             return None
-        #         elif operators[1] not in self.variables:
-        #             print("Unknown variable")
-        #             return None
-
     def handle_expression(self, express):
         express = parse_math_expression(express)
 
@@ -103,6 +90,9 @@ class SmartCalculator:
     def main(self):
         while True:
             tokens = input().strip()
+
+            if not tokens:
+                continue
 
             if tokens.startswith('/'):
                 self.handle_command(tokens)

@@ -13,16 +13,16 @@ def invalid_chars(expression):
 
 
 def check_neighboring_elements(expression):
-    for i in range(len(expression)-1):
-        if expression[i].isalnum() and expression[i+1].isalnum():
+    for i in range(len(expression) - 1):
+        if expression[i].isalnum() and expression[i + 1].isalnum():
             return True
-        elif expression[i].isalnum() and expression[i+1] == '(':
+        elif expression[i].isalnum() and expression[i + 1] == '(':
             return True
-        elif expression[i] in ('+', '-', '*', '/') and expression[i+1] in ('*', '/', ')'):
+        elif expression[i] in ('+', '-', '*', '/') and expression[i + 1] in ('*', '/', ')'):
             return True
-        elif expression[i] == '(' and expression[i+1] == ')':
+        elif expression[i] == '(' and expression[i + 1] == ')':
             return True
-        elif expression[i] == ')' and expression[i+1] == '(':
+        elif expression[i] == ')' and expression[i + 1] == '(':
             return True
 
     return False
