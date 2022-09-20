@@ -1,8 +1,3 @@
-from parsing_math_expressionn import parse_math_expression
-
-expression = input().strip()
-
-
 def infix_to_postfix(expression):
     operators = {'+': 1, '-': 1, '*': 2, '/': 2}
     postfix_expression = []
@@ -67,14 +62,3 @@ def calculate_postfix_expression(tokens):
             result.append(operand1 / operand2)
 
     return result.pop()
-
-
-expression = parse_math_expression(expression)
-print(expression)
-
-if expression:
-    expression = infix_to_postfix(expression)
-    print(expression)
-    print(calculate_postfix_expression(expression))
-else:
-    print("Invalid expression")
