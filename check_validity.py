@@ -1,12 +1,12 @@
 def invalid_chars(expression):
     for char in expression:
-        if not char.isalnum() and char not in ('+', '-', '*', '/', '(', ')', ' '):
+        if not char.isalnum() and char not in ('+', '-', '*', '/', '(', ')', ' ', '^'):
             return True
 
-    if expression[-1] in ('+', '-', '*', '/', '('):
+    if expression[-1] in ('+', '-', '*', '/', '(', '^'):
         return True
 
-    if expression[0] in ('*', '/', ')'):
+    if expression[0] in ('*', '/', ')', '^'):
         return True
 
     return False
@@ -18,9 +18,9 @@ def check_neighboring_elements(expression):
             return True
         elif expression[i].isalnum() and expression[i + 1] == '(':
             return True
-        elif expression[i] in ('+', '-', '*', '/') and expression[i + 1] in ('*', '/', ')'):
+        elif expression[i] in ('+', '-', '*', '/', '^') and expression[i + 1] in ('*', '/', ')', '^'):
             return True
-        elif expression[i] == '(' and expression[i + 1] == ')':
+        elif expression[i] == '(' and expression[i + 1] in (')', '*', '/', '^'):
             return True
         elif expression[i] == ')' and expression[i + 1] == '(':
             return True

@@ -1,5 +1,5 @@
 def infix_to_postfix(expression):
-    operators = {'+': 1, '-': 1, '*': 2, '/': 2}
+    operators = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
     postfix_expression = []
     stack = []
 
@@ -60,5 +60,7 @@ def calculate_postfix_expression(tokens):
             result.append(operand1 * operand2)
         elif element == '/':
             result.append(operand1 / operand2)
+        elif element == '^':
+            result.append(operand1 ** operand2)
 
     return result.pop()

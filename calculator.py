@@ -7,6 +7,23 @@ class SmartCalculator:
     help_text = "The program calculates the result of an expression."
     variables = {}
 
+    def check_variables(self, expression):
+        for i, item in enumerate(expression):
+            if item.isalnum():
+                if item.isnumeric():
+                    continue
+                elif self.var_name(item):
+                    print("Invalid identifier")
+                    return None
+                else:
+                    try:
+                        expression[i] = self.variables[item]
+                    except KeyError:
+                        print("Unknown variable")
+                        return None
+
+        return expression
+
     @staticmethod
     def var_name(name):
         if name.isalnum():
@@ -43,19 +60,10 @@ class SmartCalculator:
             print("Invalid assignment")
             return None
         else:
-            for i, item in enumerate(assigned_value):
-                if item.isalnum():
-                    if item.isnumeric():
-                        continue
-                    elif self.var_name(item):
-                        print("Invalid identifier")
-                        return None
-                    else:
-                        try:
-                            assigned_value[i] = self.variables[item]
-                        except KeyError:
-                            print("Unknown variable")
-                            return None
+            assigned_value = self.check_variables(assigned_value)
+
+            if not assigned_value:
+                return None
 
         assigned_value = infix_to_postfix(assigned_value)
         self.variables[operators[0]] = calculate_postfix_expression(assigned_value)
@@ -67,20 +75,11 @@ class SmartCalculator:
         if not express:
             print("Invalid expression")
             return None
-        else:
-            for i, item in enumerate(express):
-                if item.isalnum():
-                    if item.isnumeric():
-                        continue
-                    elif self.var_name(item):
-                        print("Invalid identifier")
-                        return None
-                    else:
-                        try:
-                            express[i] = self.variables[item]
-                        except KeyError:
-                            print("Unknown variable")
-                            return None
+
+        express = self.check_variables(express)
+
+        if not express:
+            return None
 
         postfix_express = infix_to_postfix(express)
         print(calculate_postfix_expression(postfix_express))

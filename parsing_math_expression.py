@@ -7,10 +7,10 @@ def parse_math_expression(expression):
     if invalid_chars(expression):
         return None
 
-    # Spaja cifre i slova u brojeve ili promenljive, ako su jedna do druge
+    # Connects digits and chars in numbers and variables
     expression = nums_and_vars(expression)
 
-    # Uklanja sve razmake iz liste
+    # Removes all spaces from the list
     expression = [item for item in expression if item != ' ']
 
     if check_neighboring_elements(expression):
