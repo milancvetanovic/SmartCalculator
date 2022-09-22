@@ -43,3 +43,29 @@ def check_brackets(expression):
         return True
 
     return False
+
+
+def check_var_name(var_name):
+    if var_name.isalnum():
+        if var_name[0].isdigit():
+            return True
+        return False
+    return True
+
+
+def check_variables(expression, var_list):
+    for i, item in enumerate(expression):
+        if item.isalnum():
+            if item.isnumeric():
+                continue
+            elif check_var_name(item):
+                print("Invalid identifier")
+                return None
+            else:
+                try:
+                    expression[i] = var_list[item]
+                except KeyError:
+                    print("Unknown variable")
+                    return None
+
+    return expression

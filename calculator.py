@@ -1,5 +1,6 @@
 from parsing_math_expression import parse_math_expression
-from infix_to_postfix import *
+from infix_to_postfix import infix_to_postfix, calculate_postfix_expression
+from check_validity import check_var_name, check_variables
 
 
 class SmartCalculator:
@@ -7,32 +8,32 @@ class SmartCalculator:
     help_text = "The program calculates the result of an expression."
     variables = {}
 
-    def check_variables(self, expression):
-        for i, item in enumerate(expression):
-            if item.isalnum():
-                if item.isnumeric():
-                    continue
-                elif self.var_name(item):
-                    print("Invalid identifier")
-                    return None
-                else:
-                    try:
-                        expression[i] = self.variables[item]
-                    except KeyError:
-                        print("Unknown variable")
-                        return None
+    # def check_variables(self, expression):
+    #     for i, item in enumerate(expression):
+    #         if item.isalnum():
+    #             if item.isnumeric():
+    #                 continue
+    #             elif self.var_name(item):
+    #                 print("Invalid identifier")
+    #                 return None
+    #             else:
+    #                 try:
+    #                     expression[i] = self.variables[item]
+    #                 except KeyError:
+    #                     print("Unknown variable")
+    #                     return None
+    #
+    #     return expression
 
-        return expression
-
-    @staticmethod
-    def var_name(name):
-        if name.isalnum():
-            if name[0].isdigit():
-                return True
-            else:
-                return False
-        else:
-            return True
+    # @staticmethod
+    # def var_name(name):
+    #     if name.isalnum():
+    #         if name[0].isdigit():
+    #             return True
+    #         else:
+    #             return False
+    #     else:
+    #         return True
 
     def handle_command(self, command):
         if command not in self.commands:
@@ -50,7 +51,7 @@ class SmartCalculator:
     def assignment(self, equation):
         operators = [operator.strip() for operator in equation.split('=', 1)]
 
-        if self.var_name(operators[0]):
+        if check_var_name(operators[0]):
             print("Invalid identifier")
             return None
 
@@ -60,7 +61,7 @@ class SmartCalculator:
             print("Invalid assignment")
             return None
         else:
-            assigned_value = self.check_variables(assigned_value)
+            assigned_value = check_variables(assigned_value, self.variables)
 
             if not assigned_value:
                 return None
@@ -76,7 +77,7 @@ class SmartCalculator:
             print("Invalid expression")
             return None
 
-        express = self.check_variables(express)
+        express = check_variables(express, self.variables)
 
         if not express:
             return None
