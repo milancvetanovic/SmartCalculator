@@ -2,10 +2,19 @@ from check_validity import *
 
 
 def parse_math_expression(expression):
-    expression = [char for char in expression]
-
     if invalid_chars(expression):
         return None
+
+    if check_first_char(expression[0]):
+        return None
+
+    if check_last_char(expression[-1]):
+        return None
+
+    if check_brackets(expression):
+        return None
+
+    expression = [char for char in expression]
 
     # Connects digits and chars in numbers and variables
     expression = nums_and_vars(expression)
@@ -14,9 +23,6 @@ def parse_math_expression(expression):
     expression = [item for item in expression if item != ' ']
 
     if check_neighboring_elements(expression):
-        return None
-
-    if check_brackets(expression):
         return None
 
     expression = plus_minus_signs(expression)

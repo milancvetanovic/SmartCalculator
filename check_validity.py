@@ -3,12 +3,18 @@ def invalid_chars(expression):
         if not char.isalnum() and char not in ('+', '-', '*', '/', '(', ')', ' ', '^'):
             return True
 
-    if expression[-1] in ('+', '-', '*', '/', '(', '^'):
-        return True
+    return False
 
-    if expression[0] in ('*', '/', ')', '^'):
-        return True
 
+def check_first_char(first_char):
+    if first_char in ('*', '/', ')', '^'):
+        return True
+    return False
+
+
+def check_last_char(last_char):
+    if last_char in ('+', '-', '*', '/', '(', '^'):
+        return True
     return False
 
 
