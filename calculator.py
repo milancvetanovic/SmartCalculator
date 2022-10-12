@@ -8,33 +8,6 @@ class SmartCalculator:
     help_text = "The program calculates the result of an expression."
     variables = {}
 
-    # def check_variables(self, expression):
-    #     for i, item in enumerate(expression):
-    #         if item.isalnum():
-    #             if item.isnumeric():
-    #                 continue
-    #             elif self.var_name(item):
-    #                 print("Invalid identifier")
-    #                 return None
-    #             else:
-    #                 try:
-    #                     expression[i] = self.variables[item]
-    #                 except KeyError:
-    #                     print("Unknown variable")
-    #                     return None
-    #
-    #     return expression
-
-    # @staticmethod
-    # def var_name(name):
-    #     if name.isalnum():
-    #         if name[0].isdigit():
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return True
-
     def handle_command(self, command):
         if command not in self.commands:
             print("Unknown command")
