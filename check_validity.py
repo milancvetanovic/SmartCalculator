@@ -60,12 +60,12 @@ def check_variables(expression, var_list):
                 continue
             elif check_var_name(item):
                 print("Invalid identifier")
-                return None
+                return "Invalid identifier"
             else:
                 try:
                     expression[i] = var_list[item]
                 except KeyError:
                     print("Unknown variable")
-                    return None
+                    return "Unknown variable"
 
     return expression

@@ -8,33 +8,6 @@ class SmartCalculator:
     help_text = "The program calculates the result of an expression."
     variables = {}
 
-    # def check_variables(self, expression):
-    #     for i, item in enumerate(expression):
-    #         if item.isalnum():
-    #             if item.isnumeric():
-    #                 continue
-    #             elif self.var_name(item):
-    #                 print("Invalid identifier")
-    #                 return None
-    #             else:
-    #                 try:
-    #                     expression[i] = self.variables[item]
-    #                 except KeyError:
-    #                     print("Unknown variable")
-    #                     return None
-    #
-    #     return expression
-
-    # @staticmethod
-    # def var_name(name):
-    #     if name.isalnum():
-    #         if name[0].isdigit():
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return True
-
     def handle_command(self, command):
         if command not in self.commands:
             print("Unknown command")
@@ -49,17 +22,20 @@ class SmartCalculator:
             return None
 
     def assignment(self, equation):
+        if '=' not in equation:
+            return "Invalid assignment"
+
         operators = [operator.strip() for operator in equation.split('=', 1)]
 
         if check_var_name(operators[0]):
             print("Invalid identifier")
-            return None
+            return "Invalid identifier"
 
         assigned_value = parse_math_expression(operators[1])
 
         if not assigned_value:
             print("Invalid assignment")
-            return None
+            return "Invalid assignment"
         else:
             assigned_value = check_variables(assigned_value, self.variables)
 
@@ -74,18 +50,19 @@ class SmartCalculator:
         express = parse_math_expression(express)
 
         if not express:
-            print("Invalid expression")
-            return None
+            return "Invalid expression"
 
-        express = check_variables(express, self.variables)
+        express = check_variables(express, SmartCalculator.variables)
 
-        if not express:
-            return None
+        if express == "Unknown variable":
+            return "Unknown variable"
+
+        if express == "Invalid identifier":
+            return "Invalid identifier"
 
         postfix_express = infix_to_postfix(express)
-        print(calculate_postfix_expression(postfix_express))
 
-        return None
+        return str(calculate_postfix_expression(postfix_express))
 
     def main(self):
         while True:
