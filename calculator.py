@@ -64,6 +64,13 @@ class SmartCalculator:
 
         return str(calculate_postfix_expression(postfix_express))
 
+    def dict_to_string(self, dicts):
+        var_string = ''
+        for key, value in dicts.items():
+            var_string += f'{key} = {value}\n'
+
+        return var_string
+
     def main(self):
         while True:
             tokens = input().strip()
