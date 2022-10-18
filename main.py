@@ -29,6 +29,13 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.variablesDisplay.setText(self.calculator.dict_to_string(self.calculator.variables))
 
+    def clearAllVariables(self):
+        self.calculator.variables.clear()
+        self.variablesDisplay.setText(self.calculator.dict_to_string(self.calculator.variables))
+
+    def clearExpression(self):
+        self.expressionEdit.clear()
+
     def keyPressEvent(self, event):
         if self.expressionEdit.hasFocus():
             if event.key() in (Qt.Key_Enter, Qt.Key_Return):
@@ -40,6 +47,8 @@ class Window(QMainWindow, Ui_MainWindow):
     def connect_signals_slots(self):
         self.calcButton.clicked.connect(self.evaluate_expression)
         self.assignButton.clicked.connect(self.define_variable)
+        self.clearVariableDisplay.clicked.connect(self.clearAllVariables)
+        self.clearExpressionButton.clicked.connect(self.clearExpression)
 
 
 # Press the green button in the gutter to run the script.
