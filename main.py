@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem
 
 from main_window_ui import Ui_MainWindow
 from calculator import SmartCalculator
@@ -27,14 +27,35 @@ class Window(QMainWindow, Ui_MainWindow):
         else:
             self.resultDisplay.setText("Successful assignment")
 
-        self.variablesDisplay.setText(self.calculator.dict_to_string(self.calculator.variables))
+        if self.calculator.variables:
+            self.listWidget.clear()
+            for key, value in self.calculator.variables.items():
+                item = QListWidgetItem()
+                item.setText(f"{key} = {value}")
+                self.listWidget.addItem(item)
 
     def clearAllVariables(self):
         self.calculator.variables.clear()
-        self.variablesDisplay.setText(self.calculator.dict_to_string(self.calculator.variables))
+        self.listWidget.clear()
 
     def clearExpression(self):
         self.expressionEdit.clear()
+
+    def delSelectedVars(self):
+        selected_vars = [item.text() for item in self.listWidget.selectedItems()]
+        for var in selected_vars:
+            var_key = [item.strip() for item in var.split('=')][0]
+            self.calculator.variables.pop(var_key)
+
+        self.listWidget.clear()
+        for key, value in self.calculator.variables.items():
+            item = QListWidgetItem()
+            item.setText(f"{key} = {value}")
+            self.listWidget.addItem(item)
+
+    # def onChange(self):
+    #     selected_vars = [item.text() for item in self.listWidget.selectedItems()]
+    #     print(selected_vars)
 
     def keyPressEvent(self, event):
         if self.expressionEdit.hasFocus():
@@ -47,8 +68,10 @@ class Window(QMainWindow, Ui_MainWindow):
     def connect_signals_slots(self):
         self.calcButton.clicked.connect(self.evaluate_expression)
         self.assignButton.clicked.connect(self.define_variable)
-        self.clearVariableDisplay.clicked.connect(self.clearAllVariables)
         self.clearExpressionButton.clicked.connect(self.clearExpression)
+        self.clearVariableDisplay.clicked.connect(self.clearAllVariables)
+        # self.listWidget.itemSelectionChanged.connect(self.onChange)
+        self.clearVariableButton.clicked.connect(self.delSelectedVars)
 
 
 # Press the green button in the gutter to run the script.

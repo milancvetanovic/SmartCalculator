@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>436</width>
-    <height>442</height>
+    <height>456</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,7 +121,7 @@
      <string>Clear All</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -176,14 +176,20 @@
      <string>Variables</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="variablesDisplay">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>215</y>
+      <y>220</y>
       <width>295</width>
-      <height>186</height>
+      <height>192</height>
      </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
     </property>
    </widget>
   </widget>
