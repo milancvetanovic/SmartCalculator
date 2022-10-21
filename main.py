@@ -24,15 +24,14 @@ class Window(QMainWindow, Ui_MainWindow):
         result = self.calculator.assignment(expression)
         if result:
             self.resultDisplay.setText(result)
-        else:
-            self.resultDisplay.setText("Successful assignment")
+            return None
 
-        if self.calculator.variables:
-            self.listWidget.clear()
-            for key, value in self.calculator.variables.items():
-                item = QListWidgetItem()
-                item.setText(f"{key} = {value}")
-                self.listWidget.addItem(item)
+        self.resultDisplay.setText("Successful assignment")
+        self.listWidget.clear()
+        for key, value in self.calculator.variables.items():
+            item = QListWidgetItem()
+            item.setText(f"{key} = {value}")
+            self.listWidget.addItem(item)
 
     def clearAllVariables(self):
         self.calculator.variables.clear()

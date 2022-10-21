@@ -39,8 +39,11 @@ class SmartCalculator:
         else:
             assigned_value = check_variables(assigned_value, self.variables)
 
-            if not assigned_value:
-                return None
+            if assigned_value == "Unknown variable":
+                return "Unknown variable"
+
+            if assigned_value == "Invalid identifier":
+                return "Invalid identifier"
 
         assigned_value = infix_to_postfix(assigned_value)
         self.variables[operators[0]] = calculate_postfix_expression(assigned_value)
