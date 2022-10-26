@@ -27,6 +27,7 @@ class Window(QMainWindow, Ui_MainWindow):
             return None
 
         self.resultDisplay.setText("Successful assignment")
+        self.expressionEdit.clear()
         self.listWidget.clear()
         for key, value in self.calculator.variables.items():
             item = QListWidgetItem()
@@ -52,10 +53,6 @@ class Window(QMainWindow, Ui_MainWindow):
             item.setText(f"{key} = {value}")
             self.listWidget.addItem(item)
 
-    # def onChange(self):
-    #     selected_vars = [item.text() for item in self.listWidget.selectedItems()]
-    #     print(selected_vars)
-
     def keyPressEvent(self, event):
         if self.expressionEdit.hasFocus():
             if event.key() in (Qt.Key_Enter, Qt.Key_Return):
@@ -69,11 +66,9 @@ class Window(QMainWindow, Ui_MainWindow):
         self.assignButton.clicked.connect(self.define_variable)
         self.clearExpressionButton.clicked.connect(self.clearExpression)
         self.clearVariableDisplay.clicked.connect(self.clearAllVariables)
-        # self.listWidget.itemSelectionChanged.connect(self.onChange)
         self.clearVariableButton.clicked.connect(self.delSelectedVars)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     smart_calculator = QApplication([])
     win = Window()
