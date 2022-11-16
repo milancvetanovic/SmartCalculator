@@ -2,8 +2,6 @@ from check_validity import *
 
 
 def parse_math_expression(expression):
-    expression = [char for char in expression]
-
     if not is_chars_valid(expression):
         return None
 
@@ -12,6 +10,8 @@ def parse_math_expression(expression):
 
     if not is_last_char_valid(expression[-1]):
         return None
+
+    expression = [char for char in expression]
 
     # Connects digits and chars in numbers and variables
     expression = nums_and_vars(expression)
