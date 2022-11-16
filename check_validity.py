@@ -1,31 +1,40 @@
-def invalid_chars(expression):
+def is_chars_valid(expression):
     for char in expression:
         if not char.isalnum() and char not in ('+', '-', '*', '/', '(', ')', ' ', '^'):
-            return True
+            return False
+    return True
 
-    if expression[-1] in ('+', '-', '*', '/', '(', '^'):
-        return True
 
-    if expression[0] in ('*', '/', ')', '^'):
-        return True
+def is_last_char_valid(last_char):
+    if last_char in ('+', '-', '*', '/', '(', '^'):
+        return False
+    return True
 
-    return False
+
+def is_first_char_valid(first_char):
+    if first_char in ('*', '/', ')', '^'):
+        return False
+    return True
 
 
 def check_neighboring_elements(expression):
     for i in range(len(expression) - 1):
         if expression[i].isalnum() and expression[i + 1].isalnum():
-            return True
-        elif expression[i].isalnum() and expression[i + 1] == '(':
-            return True
-        elif expression[i] in ('+', '-', '*', '/', '^') and expression[i + 1] in ('*', '/', ')', '^'):
-            return True
-        elif expression[i] == '(' and expression[i + 1] in (')', '*', '/', '^'):
-            return True
-        elif expression[i] == ')' and expression[i + 1] == '(':
-            return True
+            return False
 
-    return False
+        if expression[i].isalnum() and expression[i + 1] == '(':
+            return False
+
+        if expression[i] in ('+', '-', '*', '/', '^') and expression[i + 1] in ('*', '/', ')', '^'):
+            return False
+
+        if expression[i] == '(' and expression[i + 1] in (')', '*', '/', '^'):
+            return False
+
+        if expression[i] == ')' and expression[i + 1] == '(':
+            return False
+
+    return True
 
 
 def check_brackets(expression):
@@ -33,24 +42,25 @@ def check_brackets(expression):
     for item in expression:
         if item == '(':
             stack.append(item)
-        elif item == ')':
-            try:
-                stack.pop()
-            except IndexError:
-                return True
+            continue
+
+        if item == ')':
+            if not stack:
+                return False
+            stack.pop()
 
     if stack:
-        return True
+        return False
 
-    return False
+    return True
 
 
 def check_var_name(var_name):
     if var_name.isalnum():
         if var_name[0].isdigit():
-            return True
-        return False
-    return True
+            return False
+        return True
+    return False
 
 
 def check_variables(expression, var_list):
@@ -58,14 +68,13 @@ def check_variables(expression, var_list):
         if item.isalnum():
             if item.isnumeric():
                 continue
-            elif check_var_name(item):
-                print("Invalid identifier")
+
+            if not check_var_name(item):
                 return "Invalid identifier"
-            else:
-                try:
-                    expression[i] = var_list[item]
-                except KeyError:
-                    print("Unknown variable")
-                    return "Unknown variable"
+
+            try:
+                expression[i] = var_list[item]
+            except KeyError:
+                return "Unknown variable"
 
     return expression

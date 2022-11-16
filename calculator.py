@@ -13,14 +13,12 @@ class SmartCalculator:
 
         operators = [operator.strip() for operator in equation.split('=', 1)]
 
-        if check_var_name(operators[0]):
-            print("Invalid identifier")
+        if not check_var_name(operators[0]):
             return "Invalid identifier"
 
         assigned_value = parse_math_expression(operators[1])
 
         if not assigned_value:
-            print("Invalid assignment")
             return "Invalid assignment"
         else:
             assigned_value = check_variables(assigned_value, self.variables)

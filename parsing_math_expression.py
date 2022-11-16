@@ -4,7 +4,13 @@ from check_validity import *
 def parse_math_expression(expression):
     expression = [char for char in expression]
 
-    if invalid_chars(expression):
+    if not is_chars_valid(expression):
+        return None
+
+    if not is_first_char_valid(expression[0]):
+        return None
+
+    if not is_last_char_valid(expression[-1]):
         return None
 
     # Connects digits and chars in numbers and variables
@@ -13,10 +19,10 @@ def parse_math_expression(expression):
     # Removes all spaces from the list
     expression = [item for item in expression if item != ' ']
 
-    if check_neighboring_elements(expression):
+    if not check_neighboring_elements(expression):
         return None
 
-    if check_brackets(expression):
+    if not check_brackets(expression):
         return None
 
     expression = plus_minus_signs(expression)
@@ -47,14 +53,14 @@ def plus_minus_signs(expression):
             if expression[i + 1] == '+':
                 expression.pop(i + 1)
                 continue
-            elif expression[i + 1] == '-':
+            if expression[i + 1] == '-':
                 expression.pop(i)
                 continue
-        elif expression[i] == '-':
+        if expression[i] == '-':
             if expression[i + 1] == '+':
                 expression.pop(i + 1)
                 continue
-            elif expression[i + 1] == '-':
+            if expression[i + 1] == '-':
                 expression[i] = '+'
                 expression.pop(i + 1)
                 continue

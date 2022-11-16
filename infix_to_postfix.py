@@ -59,7 +59,10 @@ def calculate_postfix_expression(tokens):
         if element == '*':
             result.append(operand1 * operand2)
         elif element == '/':
-            result.append(operand1 / operand2)
+            try:
+                result.append(operand1 / operand2)
+            except ZeroDivisionError:
+                return "ERROR"
         elif element == '^':
             result.append(operand1 ** operand2)
 
