@@ -20,17 +20,15 @@ class SmartCalculator:
 
         if not assigned_value:
             return "Invalid assignment"
-        else:
-            assigned_value = check_variables(assigned_value, self.variables)
 
-            if assigned_value == "Unknown variable":
-                return "Unknown variable"
+        assigned_value = check_variables(assigned_value, self.variables)
 
-            if assigned_value == "Invalid identifier":
-                return "Invalid identifier"
+        if assigned_value in ("Unknown variable", "Invalid identifier"):
+            return assigned_value
 
         assigned_value = infix_to_postfix(assigned_value)
         self.variables[operators[0]] = calculate_postfix_expression(assigned_value)
+
         return None
 
     def handle_expression(self, express):
@@ -44,11 +42,8 @@ class SmartCalculator:
 
         express = check_variables(express, self.variables)
 
-        if express == "Unknown variable":
-            return "Unknown variable"
-
-        if express == "Invalid identifier":
-            return "Invalid identifier"
+        if express in ("Unknown variable", "Invalid identifier"):
+            return express
 
         postfix_express = infix_to_postfix(express)
 

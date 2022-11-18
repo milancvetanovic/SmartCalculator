@@ -11,18 +11,16 @@ def parse_math_expression(expression):
     if not is_last_char_valid(expression[-1]):
         return None
 
-    expression = [char for char in expression]
+    if not check_brackets(expression):
+        return None
 
     # Connects digits and chars in numbers and variables
-    expression = nums_and_vars(expression)
+    expression = nums_and_vars(list(expression))
 
     # Removes all spaces from the list
     expression = [item for item in expression if item != ' ']
 
     if not check_neighboring_elements(expression):
-        return None
-
-    if not check_brackets(expression):
         return None
 
     expression = plus_minus_signs(expression)

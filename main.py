@@ -28,11 +28,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.resultDisplay.setText("Successful assignment")
         self.expressionEdit.clear()
-        self.listWidget.clear()
-        for key, value in self.calculator.variables.items():
-            item = QListWidgetItem()
-            item.setText(f"{key} = {value}")
-            self.listWidget.addItem(item)
+        self.refresh_variables(self.calculator.variables)
 
     def clearAllVariables(self):
         self.calculator.variables.clear()
@@ -47,8 +43,11 @@ class Window(QMainWindow, Ui_MainWindow):
             var_key = [item.strip() for item in var.split('=')][0]
             self.calculator.variables.pop(var_key)
 
+        self.refresh_variables(self.calculator.variables)
+
+    def refresh_variables(self, var_list):
         self.listWidget.clear()
-        for key, value in self.calculator.variables.items():
+        for key, value in var_list.items():
             item = QListWidgetItem()
             item.setText(f"{key} = {value}")
             self.listWidget.addItem(item)

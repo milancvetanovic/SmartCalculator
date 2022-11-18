@@ -38,6 +38,11 @@ class TestCheckBrackets(unittest.TestCase):
         result = check_brackets(input_string)
         self.assertTrue(result, "Should be True")
 
+    def test_no_brackets(self):
+        input_string = '10*10+10*10-100'
+        result = check_brackets(input_string)
+        self.assertTrue(result, "Should be True")
+
 
 if __name__ == '__main__':
     unittest.main()
