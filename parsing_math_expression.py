@@ -65,3 +65,24 @@ def plus_minus_signs(expression):
         i += 1
 
     return expression
+
+
+def replace_variables(expression, var_list):
+    for i, item in enumerate(expression):
+        if item.isalnum():
+            if item.isnumeric():
+                continue
+
+            if not check_var_name(item):
+                return "Invalid identifier"
+
+            if item not in var_list:
+                return "Unknown variable"
+            expression[i] = var_list[item]
+
+            # try:
+            #     expression[i] = var_list[item]
+            # except KeyError:
+            #     return "Unknown variable"
+
+    return expression

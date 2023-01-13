@@ -61,20 +61,3 @@ def check_var_name(var_name):
             return False
         return True
     return False
-
-
-def check_variables(expression, var_list):
-    for i, item in enumerate(expression):
-        if item.isalnum():
-            if item.isnumeric():
-                continue
-
-            if not check_var_name(item):
-                return "Invalid identifier"
-
-            try:
-                expression[i] = var_list[item]
-            except KeyError:
-                return "Unknown variable"
-
-    return expression

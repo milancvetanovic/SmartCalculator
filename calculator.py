@@ -1,6 +1,6 @@
-from parsing_math_expression import parse_math_expression
+from parsing_math_expression import parse_math_expression, replace_variables
 from infix_to_postfix import infix_to_postfix, calculate_postfix_expression
-from check_validity import check_var_name, check_variables
+from check_validity import check_var_name
 
 
 class SmartCalculator:
@@ -21,7 +21,7 @@ class SmartCalculator:
         if not assigned_value:
             return "Invalid assignment"
 
-        assigned_value = check_variables(assigned_value, self.variables)
+        assigned_value = replace_variables(assigned_value, self.variables)
 
         if assigned_value in ("Unknown variable", "Invalid identifier"):
             return assigned_value
@@ -40,7 +40,7 @@ class SmartCalculator:
         if not express:
             return "Invalid expression"
 
-        express = check_variables(express, self.variables)
+        express = replace_variables(express, self.variables)
 
         if express in ("Unknown variable", "Invalid identifier"):
             return express
